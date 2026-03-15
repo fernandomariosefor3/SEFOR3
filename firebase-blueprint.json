@@ -1,0 +1,75 @@
+{
+  "entities": {
+    "School": {
+      "title": "School",
+      "description": "Educational institution",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the school" },
+        "inep": { "type": "string", "description": "INEP code" },
+        "ownerId": { "type": "string", "description": "User ID of the creator" }
+      },
+      "required": ["name", "ownerId"]
+    },
+    "FrequencyRecord": {
+      "title": "Frequency Record",
+      "description": "Daily attendance record",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string", "description": "ID of the school" },
+        "date": { "type": "string", "description": "Date of the record" },
+        "present": { "type": "number", "description": "Number of present students" },
+        "absent": { "type": "number", "description": "Number of absent students" },
+        "ownerId": { "type": "string", "description": "User ID of the creator" }
+      },
+      "required": ["schoolId", "date", "present", "absent", "ownerId"]
+    },
+    "EvaluationRecord": {
+      "title": "Evaluation Record",
+      "description": "Student grade record",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string", "description": "ID of the school" },
+        "studentName": { "type": "string", "description": "Name of the student" },
+        "subject": { "type": "string", "description": "Subject name" },
+        "grade": { "type": "number", "description": "Grade value" },
+        "date": { "type": "string", "description": "Date of evaluation" },
+        "ownerId": { "type": "string", "description": "User ID of the creator" }
+      },
+      "required": ["schoolId", "studentName", "subject", "grade", "date", "ownerId"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Educational project",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Project title" },
+        "description": { "type": "string", "description": "Project description" },
+        "status": { "type": "string", "description": "Current status" },
+        "startDate": { "type": "string", "description": "Start date" },
+        "ownerId": { "type": "string", "description": "User ID of the creator" }
+      },
+      "required": ["title", "status", "startDate", "ownerId"]
+    },
+    "CalendarEvent": {
+      "title": "Calendar Event",
+      "description": "Scheduled event",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Event title" },
+        "date": { "type": "string", "description": "Event date" },
+        "location": { "type": "string", "description": "Event location" },
+        "description": { "type": "string", "description": "Event description" },
+        "ownerId": { "type": "string", "description": "User ID of the creator" }
+      },
+      "required": ["title", "date", "ownerId"]
+    }
+  },
+  "firestore": {
+    "schools": { "schema": "School", "description": "Collection of schools" },
+    "frequency": { "schema": "FrequencyRecord", "description": "Collection of frequency records" },
+    "evaluations": { "schema": "EvaluationRecord", "description": "Collection of evaluation records" },
+    "projects": { "schema": "Project", "description": "Collection of projects" },
+    "events": { "schema": "CalendarEvent", "description": "Collection of events" }
+  }
+}

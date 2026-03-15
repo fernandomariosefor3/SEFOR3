@@ -1,0 +1,100 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    function isDocOwner() {
+      return isAuthenticated() && request.auth.uid == resource.data.ownerId;
+    }
+    function ownerIdUnchanged() {
+      return request.resource.data.ownerId == request.auth.uid;
+    }
+    function ownerIdNotModified() {
+      return request.resource.data.ownerId == resource.data.ownerId;
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+    function isValidSchool(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() < 200 &&
+             (data.inep == null || (data.inep is string && data.inep.size() < 50)) &&
+             data.ownerId == request.auth.uid;
+    }
+
+    function isValidFrequency(data) {
+      return data.schoolId is string &&
+             data.date is string &&
+             data.present is number && data.present >= 0 &&
+             data.absent is number && data.absent >= 0 &&
+             data.ownerId == request.auth.uid;
+    }
+
+    function isValidEvaluation(data) {
+      return data.schoolId is string &&
+             data.studentName is string && data.studentName.size() > 0 &&
+             data.subject is string &&
+             data.grade is number && data.grade >= 0 && data.grade <= 10 &&
+             data.date is string &&
+             data.ownerId == request.auth.uid;
+    }
+
+    function isValidProject(data) {
+      return data.title is string && data.title.size() > 0 &&
+             data.status is string &&
+             data.startDate is string &&
+             data.ownerId == request.auth.uid;
+    }
+
+    function isValidEvent(data) {
+      return data.title is string && data.title.size() > 0 &&
+             data.date is string &&
+             data.ownerId == request.auth.uid;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+    match /schools/{id} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && isValidSchool(request.resource.data);
+      allow update: if isDocOwner() && isValidSchool(request.resource.data) && ownerIdNotModified();
+      allow delete: if isDocOwner();
+    }
+
+    match /frequency/{id} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && isValidFrequency(request.resource.data);
+      allow update: if isDocOwner() && isValidFrequency(request.resource.data) && ownerIdNotModified();
+      allow delete: if isDocOwner();
+    }
+
+    match /evaluations/{id} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && isValidEvaluation(request.resource.data);
+      allow update: if isDocOwner() && isValidEvaluation(request.resource.data) && ownerIdNotModified();
+      allow delete: if isDocOwner();
+    }
+
+    match /projects/{id} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && isValidProject(request.resource.data);
+      allow update: if isDocOwner() && isValidProject(request.resource.data) && ownerIdNotModified();
+      allow delete: if isDocOwner();
+    }
+
+    match /events/{id} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && isValidEvent(request.resource.data);
+      allow update: if isDocOwner() && isValidEvent(request.resource.data) && ownerIdNotModified();
+      allow delete: if isDocOwner();
+    }
+  }
+}
