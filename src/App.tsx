@@ -27,9 +27,7 @@ export default function App() {
     return (
       <div className="min-h-screen bg-[#15803d] flex items-center justify-center">
         <div className="text-white text-center">
-          <p className="text-4xl font-black tracking-tighter mb-2">
-            SEFOR <span className="text-[#ca8a04]">3</span>
-          </p>
+          <p className="text-4xl font-black tracking-tighter mb-2">SEFOR 3</p>
           <p className="text-green-200 animate-pulse">Carregando...</p>
         </div>
       </div>
@@ -39,30 +37,20 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/login"
-          element={user ? <Navigate to="/dashboard" /> : <Login />}
-        />
-        <Route
-          path="/*"
-          element={
-            user ? (
-              <Layout>
-                <Routes>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/escolas" element={<Escolas />} />
-                  <Route path="/frequencia" element={<Frequencia />} />
-                  <Route path="/notas" element={<Notas />} />
-                  <Route path="/projetos" element={<Projetos />} />
-                  <Route path="/ambientes" element={<Ambientes />} />
-                  <Route path="*" element={<Navigate to="/dashboard" />} />
-                </Routes>
-              </Layout>
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
+        <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
+        <Route path="/*" element={user ? (
+          <Layout>
+            <Routes>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/escolas" element={<Escolas />} />
+              <Route path="/frequencia" element={<Frequencia />} />
+              <Route path="/notas" element={<Notas />} />
+              <Route path="/projetos" element={<Projetos />} />
+              <Route path="/ambientes" element={<Ambientes />} />
+              <Route path="*" element={<Navigate to="/dashboard" />} />
+            </Routes>
+          </Layout>
+        ) : <Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
   );
