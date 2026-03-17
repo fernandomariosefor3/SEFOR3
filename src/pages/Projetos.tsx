@@ -1,35 +1,31 @@
-import { BookOpen } from 'lucide-react';
+import { useState } from 'react';
+import { BookOpen, Plus } from 'lucide-react';
+
+const projetosIniciais = [
+  { titulo: 'Feira de Ciências 2025', escola: 'E.E. Castro Alves', status: 'Em andamento' },
+  { titulo: 'Projeto Leitura Criativa', escola: 'E.E. Rui Barbosa', status: 'Concluído' },
+  { titulo: 'Horta Escolar Sustentável', escola: 'E.E. Santos Dumont', status: 'Planejamento' },
+];
 
 export default function Projetos() {
+  const [mostrarForm, setMostrarForm] = useState(false);
+  const [titulo, setTitulo] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [escola, setEscola] = useState('');
+
   return (
-    <div className="sefor-card">
-      <h2 className="text-3xl font-bold text-[#15803d] mb-8 flex items-center gap-2">
-        <BookOpen /> Gestão de Projetos
-      </h2>
-
-      <div className="space-y-8">
+    <div className="space-y-6">
+      <div className="flex justify-between items-start">
         <div>
-          <label className="block text-sm font-black text-gray-500 uppercase mb-2">Título Estratégico do Projeto</label>
-          <input
-            type="text"
-            className="sefor-input font-bold text-lg"
-            placeholder="Digite o nome do projeto..."
-          />
+          <h1 className="text-3xl font-black text-[#15803d] flex items-center gap-2">
+            <BookOpen /> Projetos
+          </h1>
+          <p className="text-gray-500 font-medium">Gestão de projetos pedagógicos</p>
         </div>
-
-        <div>
-          <label className="block text-sm font-black text-gray-500 uppercase mb-2">Detalhamento Técnico e Metodológico</label>
-          <textarea
-            rows={15}
-            className="sefor-input"
-            placeholder="Descreva aqui com detalhes: Objetivos, Público-alvo, Recursos Necessários, Cronograma de Execução e Resultados Esperados..."
-          ></textarea>
-        </div>
-
-        <button type="button" className="sefor-button w-full text-xl py-5 shadow-2xl">
-          SALVAR E PUBLICAR PROJETO
+        <button
+          onClick={() => setMostrarForm(!mostrarForm)}
+          className="flex items-center gap-2 bg-[#15803d] text-white font-black px-5 py-3 rounded-xl hover:bg-[#166534] transition-all"
+        >
+          <Plus size={18} /> Novo Projeto
         </button>
-      </div>
-    </div>
-  );
-}
+      </div
