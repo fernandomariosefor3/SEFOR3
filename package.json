@@ -13,7 +13,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "lucide-react": "^0.460.0",
-    "firebase": "^10.8.0"
+    "firebase": "^10.8.0",
+    "recharts": "^2.12.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
