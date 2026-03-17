@@ -1,35 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --primary-green: #2e7d32;
-  --dark-yellow: #fbc02d;
-  --white: #ffffff;
-  --bg-light: #f4f7f6;
-  --text-dark: #1b5e20;
+  --primary: #15803d;
+  --accent: #ca8a04;
+  --bg-white: #ffffff;
 }
 
 body {
-  background-color: var(--bg-light);
-  color: var(--text-dark);
+  background-color: #f0f4f0;
+  color: #1a2e1a;
   font-family: 'Inter', sans-serif;
 }
 
-.btn-primary {
-  background-color: var(--primary-green);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
+.sefor-card {
+  @apply bg-white rounded-3xl shadow-xl border-b-8 border-[#ca8a04] p-8;
 }
 
-.btn-primary:hover {
-  background-color: #1b5e20;
+.sefor-button {
+  @apply bg-[#15803d] text-white font-bold py-3 px-6 rounded-xl hover:bg-[#166534] transition-all active:scale-95;
 }
 
-.card {
-  background: white;
-  border-left: 5px solid var(--dark-yellow);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+.sefor-input {
+  @apply w-full p-4 border-2 border-gray-200 rounded-xl focus:border-[#ca8a04] outline-none transition-colors;
 }
